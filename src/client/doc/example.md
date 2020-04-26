@@ -12,6 +12,34 @@
 
 > 💡 **[SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega)** Chrome 用的代理插件。用过都知道
 
+> 💡 **[Save To Pocket](https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?h1=en)** Read Later, 稍后阅读。
+
+> 💡 **[Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb?h1=en)** 广告屏蔽。
+
+> 💡 **[The Great Suspender](https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg?h1=en)** 挂起标签页，省内存。
+
+> 💡 **[What Font]()** 查看网页字体。
+
+> 💡 **[AHA Music - Music identifier]()** 识别网页音乐。
+
+> 💡 **[Sound Pirate]()** 识别网页音乐，且获取下载链接。
+
+> 💡 **[Fokus]()** 聚焦框选文字。
+
+> 💡 **[Google Scholar]()** 谷歌学术。
+
+> 💡 **[Grammarly]()** 修正语法。
+
+> 💡 **[cVim]()** Vim 编辑器在网页上的映射，不用鼠标可随意跳转，提升效率。
+
+> 💡 **[Wappalyzer]()** 检测当前网站使用了那些技术。
+
+> 💡 **[Librarian for arXiv]()** 帮忙查看论文文献引用。
+
+> 💡 **[One key disable]()** 一键关闭所有Chrome插件。
+
+> 💡 **[Refined Github]()** 为Github提供更多功能。
+
 ### Chrome Book Marks
 
 > 💡 **[Github](https://github.com/)** 全球最大的软件开源社区，它象征了开源。而开源，象征了美好的未来。
@@ -31,6 +59,11 @@
 > 💡 **[python3 Documents](https://docs.python.org/3/)** python3 开发手册
 
 > 💡 **[MDN](https://developer.mozilla.org/zh-CN/)** Web 开发手册
+
+### Blogs
+
+> 💡 **[GeekPlux](https://geekplux.com)** 。
+
 
 ## Develope
 
