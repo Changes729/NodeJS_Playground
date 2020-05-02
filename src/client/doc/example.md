@@ -18,7 +18,7 @@
 
 > 💡 **[The Great Suspender](https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg?h1=en)** 挂起标签页，省内存。
 
-> 💡 **[What Font]()** 查看网页字体。
+> 💡 **[What Font](https://chrome.google.com/webstore/detail/whatfont/jabopobgcpjmedljpbcaablpmlmfcogm?h1=en)** 查看网页字体。
 
 > 💡 **[AHA Music - Music identifier]()** 识别网页音乐。
 
