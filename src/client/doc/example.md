@@ -82,3 +82,6 @@
 ### 英语语法插件
 
 目的：在学习英语语法后没能及时的复习。希望能在 Web 上阅读文章时，可以通过某些提示性颜色或内容，让自己能够回忆起英语语法知识。
+
+1. https://github.com/rafaelcpalmeida/Word-Highlighter 右键保存、字符高亮。
+2. https://github.com/MariusBongarts/MarkMyWords 右键保存、字符列表、数据易失。侧边栏、popup。
