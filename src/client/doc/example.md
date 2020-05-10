@@ -85,3 +85,22 @@
 
 1. https://github.com/rafaelcpalmeida/Word-Highlighter 右键保存、字符高亮。
 2. https://github.com/MariusBongarts/MarkMyWords 右键保存、字符列表、数据易失。侧边栏、popup。
+
+### 网站更新
+
+第一阶段，仅以显示为目标。
+
+- [x] 文本
+- [x] 图片
+- [x] 表格
+- [ ] 音频
+- [ ] 视频
+
+其他
+
+- [  ] △ 气味
+- [  ] △ 触感
+- [  ] △ 温度
+- [  ] △ 情绪
+- [  ] △ 思路
+
