@@ -20,6 +20,10 @@
 
 > 💡 **[What Font](https://chrome.google.com/webstore/detail/whatfont/jabopobgcpjmedljpbcaablpmlmfcogm?h1=en)** 查看网页字体。
 
+> 💡 **[Multi-Highlight](https://github.com/yiminzme/Multi-Highlight)** 右键添加、高亮效果好。
+
+> 💡 **[Beanote](https://chrome.google.com/webstore/detail/beanote-note-taking-on-we/nikccehomlnjkmgmhnieecolhgdafajb)** 段落高亮与笔记。
+
 > 💡 **[AHA Music - Music identifier]()** 识别网页音乐。
 
 > 💡 **[Sound Pirate]()** 识别网页音乐，且获取下载链接。
@@ -36,9 +40,9 @@
 
 > 💡 **[Librarian for arXiv]()** 帮忙查看论文文献引用。
 
-> 💡 **[One key disable]()** 一键关闭所有Chrome插件。
+> 💡 **[One key disable]()** 一键关闭所有 Chrome 插件。
 
-> 💡 **[Refined Github]()** 为Github提供更多功能。
+> 💡 **[Refined Github]()** 为 Github 提供更多功能。
 
 ### Chrome Book Marks
 
@@ -64,7 +68,6 @@
 
 > 💡 **[GeekPlux](https://geekplux.com)** 。
 
-
 ## Develope
 
 ### Google Chrome Extensions
@@ -79,14 +82,14 @@
 
 ## Todo
 
-### 英语语法插件
+### 一、英语语法插件
 
 目的：在学习英语语法后没能及时的复习。希望能在 Web 上阅读文章时，可以通过某些提示性颜色或内容，让自己能够回忆起英语语法知识。
 
-1. https://github.com/rafaelcpalmeida/Word-Highlighter 右键保存、字符高亮。
-2. https://github.com/MariusBongarts/MarkMyWords 右键保存、字符列表、数据易失。侧边栏、popup。
+1. [Multi-Highlight](https://github.com/yiminzme/Multi-Highlight) 右键添加、高亮效果好。
+2. [Beanote](https://chrome.google.com/webstore/detail/beanote-note-taking-on-we/nikccehomlnjkmgmhnieecolhgdafajb) 段落高亮与笔记。
 
-### 网站更新
+### 二、网站更新
 
 第一阶段，仅以显示为目标。
 
@@ -96,13 +99,27 @@
 - [x] 音频
 - [x] 视频
 
+第二阶段，稍作优化。
+
+- [ ] BGM、自动播放与切换
+- [ ] 更自然的页管理
+- [ ] 发送请求
+
 其他
 
-- [  ] △ 气味
-- [  ] △ 触感
-- [  ] △ 温度
-- [  ] △ 情绪
-- [  ] △ 思路
+- [ ] △ 气味
+- [ ] △ 触感
+- [ ] △ 温度
+- [ ] △ 情绪
+- [ ] △ 思路
+
+### 三、通过 Web 上传文件
+
+- 可以通过 Web 上传文件。（单个/批量）
+- 上传的文件可以根据文件类型自动放置到某个文件夹下进行管理。
+- 上传的文件可以添加 Tag/Group，在通过创建软链接实现分类。
 
 ## Questions
-* Nginx的文件访问管理是什么样的？我怎样可以把一台电脑，通过服务器变成真正的方便的`网盘`？
+
+- Nginx 的文件访问管理是什么样的？我怎样可以把一台电脑，通过服务器变成真正的方便的`网盘`？
+- JavaEE 后台服务工具链。
