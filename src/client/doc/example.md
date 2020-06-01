@@ -139,3 +139,6 @@
 
 ### Archlinux 其他配置
 > **[设置自动登陆](https://wiki.archlinux.org/index.php/Getty_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))**
+
+### TR069
+__TR069__<font color=#92D050 size=1>(Technical Report - 069)</font>是 __CPE__<font color=#92D050 size=1>(Customer Premise Equipment, 客户终端设备)</font> 和 __ACS__<font color=#92D050 size=1>(Auto-Configuration Server, 自动配置服务器)</font>之间沟通的通讯协定。CPE 可以借着这个协定完成服务开通、功能设定、档案上传下载、系统检测 等等初始化及营运管理的必须动作。
