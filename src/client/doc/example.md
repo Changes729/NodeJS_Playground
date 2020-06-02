@@ -118,6 +118,11 @@
 
 - 可以通过 Web 上传文件。（单个/批量）
 - 上传的文件可以根据文件类型自动放置到某个文件夹下进行管理。
+
+1. [NodeJS文件上传1](https://www.cnblogs.com/iwang5566/p/6287529.html)。
+2. [NodeJS文件上传2](https://juejin.im/post/58c64f2b0ce463005479f4d3#heading-1)。
+2. [NodeJS文件上传3](https://www.cnblogs.com/jackson-yqj/p/10155194.html)。
+
 - 上传的文件可以添加 Tag/Group，在通过创建软链接实现分类。
 
 ## Questions
