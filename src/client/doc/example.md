@@ -86,12 +86,12 @@
 
 ## Todo
 
-### 一、英语语法插件
+### 一、英语语法插件 _(Clear)_
 
 目的：在学习英语语法后没能及时的复习。希望能在 Web 上阅读文章时，可以通过某些提示性颜色或内容，让自己能够回忆起英语语法知识。
 
 1. [Multi-Highlight](https://github.com/yiminzme/Multi-Highlight) 右键添加、高亮效果好。
-2. [Beanote](https://chrome.google.com/webstore/detail/beanote-note-taking-on-we/nikccehomlnjkmgmhnieecolhgdafajb) 段落高亮与笔记。
+2. [Weava](https://www.weavatools.com/) 段落高亮与笔记,PDF 以及云端同步。
 
 ### 二、网站更新
 
@@ -107,7 +107,7 @@
 
 - [ ] BGM、自动播放与切换
 - [ ] 更自然的页管理
-- [ ] 发送请求
+- [x] 发送请求
 - [ ] markdown 嵌入视频
 
 其他
@@ -120,14 +120,12 @@
 
 ### 三、通过 Web 上传文件
 
-- 可以通过 Web 上传文件。（单个/批量）
+[NodeJS 文件上传](https://juejin.im/post/5c7ff5a85188252e0f377bf8)。post readStream的，但现在的我还不知道该怎么用，恩，现在能上传文件就好了。
+
+- 可以通过 Web 上传文件，单个√。
 - 上传的文件可以根据文件类型自动放置到某个文件夹下进行管理。
 
-1. [NodeJS文件上传1](https://www.cnblogs.com/iwang5566/p/6287529.html)。
-2. [NodeJS文件上传2](https://juejin.im/post/58c64f2b0ce463005479f4d3#heading-1)。
-2. [NodeJS文件上传3](https://www.cnblogs.com/jackson-yqj/p/10155194.html)。
-
-- 上传的文件可以添加 Tag/Group，在通过创建软链接实现分类。
+* 上传的文件可以添加 Tag/Group，在通过创建软链接实现分类。
 
 ## Questions
 
@@ -147,7 +145,9 @@
 **[B 站 Archlinux i3 gaps 平铺式美化方案](https://www.bilibili.com/video/BV1gW411H7Ke)** 个人觉得 Archlinux 的美化比装机难多了且无意义。难是因为 Unix 的编程哲学就是 **_职责所在,应有尽有_**，但是一旦和 GUI 相关上，一些`应用的体现`与某些软件的职责，就会变得模糊不清，换一句话来说，就是 **你即不知道你需要什么，也不知道它们有什么。** 后者可以通过 App Store 的方式解决，这也是中国本地化的`Ubuntu Kylin`在做的事情。而前者，往往不是问题，因为往往都是别人告诉你，你需要什么。就像上学的时候，你能明确的从身边人知道，你只需要 _好好学习_，但你并不知道为什么要好好学习，其实知道为什么要`学习`，比知道`自己应该去学习`更加的重要，且自然。
 
 ### Archlinux 其他配置
-> **[设置自动登陆](https://wiki.archlinux.org/index.php/Getty_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))**
+
+> **[设置自动登陆](<https://wiki.archlinux.org/index.php/Getty_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)>)**
 
 ### TR069
-__TR069__<font color=#92D050 size=1>(Technical Report - 069)</font>是 __CPE__<font color=#92D050 size=1>(Customer Premise Equipment, 客户终端设备)</font> 和 __ACS__<font color=#92D050 size=1>(Auto-Configuration Server, 自动配置服务器)</font>之间沟通的通讯协定。CPE 可以借着这个协定完成服务开通、功能设定、档案上传下载、系统检测 等等初始化及营运管理的必须动作。
+
+**TR069**<font color=#92D050 size=1>(Technical Report - 069)</font>是 **CPE**<font color=#92D050 size=1>(Customer Premise Equipment, 客户终端设备)</font> 和 **ACS**<font color=#92D050 size=1>(Auto-Configuration Server, 自动配置服务器)</font>之间沟通的通讯协定。CPE 可以借着这个协定完成服务开通、功能设定、档案上传下载、系统检测 等等初始化及营运管理的必须动作。
