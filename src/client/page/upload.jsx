@@ -139,7 +139,7 @@ class UploadFile extends PureComponent {
   }
 }
 
-export default class Playground_Page extends Component {
+export default class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
