@@ -1,5 +1,10 @@
 import React, { Component, PureComponent } from "react";
 import ReactDOM from "react-dom";
+import withStyles, { createUseStyles } from "react-jss";
+import jss from "jss";
+import preset from "jss-preset-default";
+
+jss.setup(preset());
 
 class Overlay extends Component {
   constructor(props) {
@@ -13,9 +18,40 @@ class Overlay extends Component {
   }
 
   render() {
+    const style = {
+      overlay: {
+        boxSizing: "border-box",
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        width: 600,
+        height: 500,
+        margin: { left: -300, top: -310 },
+        backgroundColor: "#fff",
+        outline: "rgba(0,0,0,.5) solid 9999px",
+        borderRadius: 5,
+      },
+      overlayClose: {
+        position: "absolute",
+        top: 5,
+        right: 15,
+        color: "#000",
+        cursor: "pointer",
+        fontSize: 40,
+        lineHeight: "40px",
+        fontWeight: "lighter",
+        opacity: 0.4,
+        "&:hover": {
+          opacity: 1,
+        },
+      },
+    };
+
+    const { classes } = jss.createStyleSheet(style).attach();
+
     return ReactDOM.createPortal(
-      <div className="overlay">
-        <span className="overlay-close" onClick={this.props.onClose}>
+      <div class={classes.overlay}>
+        <span class={classes.overlayClose} onClick={this.props.onClose}>
           &times;
         </span>
         {this.props.children}
@@ -103,11 +139,113 @@ class UploadFile extends PureComponent {
   }
 
   render() {
+    const styles = {
+      button_upload: {
+        float: "right",
+        margin: "20px 54px  20px 0",
+        height: "30px",
+        padding: "6px 40px",
+        border: {
+          style: "none",
+          radius: "4px",
+        },
+        color: "#fff",
+        background:
+          "-webkit-gradient(linear, left 0, right 0, from(#00bcff), to(#00d8ff))",
+        "&:hover": {
+          background: "#00bcffFF",
+        },
+      },
+      button_cancel: {
+        float: "right",
+        margin: "20px 25px 20px 0",
+        height: "30px",
+        padding: "6px 40px",
+        color: "#808080",
+        background: { color: "#fff" },
+        border: {
+          style: "solid",
+          width: " 1px",
+          color: "#adadad",
+          radius: "4px",
+        },
+        "&:hover": {
+          background: { color: "#f7f7f7" },
+        },
+      },
+      media: {
+        width: 498,
+        height: 200,
+        border: { style: "solid", width: 1, color: "#bbb" },
+        margin: { left: 45 },
+        display: "flex",
+        justify: { content: "center" },
+        align: { items: "center" },
+        "& video": {
+          max: {
+            width: 498,
+            height: 198,
+            border: { style: "none" },
+          },
+        },
+        "& img": {
+          width: 498,
+          height: 198,
+          border: { style: "none" },
+        },
+        "& textarea": {
+          width: 498,
+          height: 198,
+          border: { style: "none" },
+          resize: "none",
+          box: { sizing: "border-box" },
+          padding: 10,
+        },
+      },
+      row: {
+        height: 30,
+        lineHeight: "30px",
+        fontSize: 14,
+        margin: "40px auto",
+        "& label": {
+          margin: {
+            left: 45,
+            right: 10,
+          },
+          fontWeight: "bold",
+        },
+        "& input": {
+          border: "solid 1px #bbb",
+          height: 30,
+          width: 430,
+          textIndent: 10,
+          fontSize: 14,
+        },
+      },
+      rowInput: {
+        display: "inline-block",
+        outline: "solid 1px #bbb",
+        backgroundColor: "#eee",
+        position: "relative",
+        "& input": {
+          opacity: 0,
+        },
+        "& span": {
+          position: "absolute",
+          left: 10,
+          fontWeight: "normal",
+          opacity: 0.3,
+        },
+      },
+    };
+
     const { name, path, preview } = this.state;
+    const { classes } = jss.createStyleSheet(styles).attach();
+
     return (
       <div>
         <h4>上传文件</h4>
-        <div className="row">
+        <div class={classes.row}>
           <label>文件名称</label>
           <input
             type="text"
@@ -116,9 +254,9 @@ class UploadFile extends PureComponent {
             onChange={this.changeName}
           />
         </div>
-        <div className="row">
+        <div class={classes.row}>
           <label>文件路径</label>
-          <div className="row-input">
+          <div class={classes.rowInput}>
             <span>{path ? path : "请选择文件路径"}</span>
             <input
               type="file"
@@ -127,11 +265,11 @@ class UploadFile extends PureComponent {
             />
           </div>
         </div>
-        <div className="media">{preview}</div>
-        <button className="primary upload" onClick={this.upload}>
+        <div class={classes.media}>{preview}</div>
+        <button class={classes.button_upload} onClick={this.upload}>
           上传
         </button>
-        <button className="primary cancel" onClick={this.cancel}>
+        <button class={classes.button_cancel} onClick={this.cancel}>
           取消
         </button>
       </div>
