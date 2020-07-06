@@ -1,12 +1,47 @@
 import React, { Component, PureComponent } from "react";
 import ReactDOM from "react-dom";
-import withStyles, { createUseStyles } from "react-jss";
 import jss from "jss";
 import preset from "jss-preset-default";
 
+import { API_UPLOAD_URL, FIELD_NAME } from "../../shared/app/define_upload";
+import { WEB_PORT } from "../../shared/config";
+
 jss.setup(preset());
 
-class Overlay extends Component {
+class UploadMain extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      overlayActive: false,
+    };
+
+    this.hideOverlay = this.hideOverlay.bind(this);
+    this.showOverlay = this.showOverlay.bind(this);
+  }
+
+  hideOverlay() {
+    this.setState({ overlayActive: false });
+  }
+
+  showOverlay() {
+    this.setState({ overlayActive: true });
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.overlayActive && (
+          <OverLayout onClose={this.hideOverlay}>
+            <UploadFile hideOverlay={this.hideOverlay} />
+          </OverLayout>
+        )}
+        <button onClick={this.showOverlay}>show</button>
+      </div>
+    );
+  }
+}
+
+class OverLayout extends Component {
   constructor(props) {
     super(props);
     this.container = document.createElement("div");
@@ -26,20 +61,18 @@ class Overlay extends Component {
         left: "50%",
         width: 600,
         height: 500,
-        margin: { left: -300, top: -310 },
+        padding: 10,
+        transform: "translate(-50%,-50%)",
         backgroundColor: "#fff",
-        outline: "rgba(0,0,0,.5) solid 9999px",
-        borderRadius: 5,
+        // I don't like the outline-width value set.
+        outline: { color: "rgba(0,0,0,.5)", width: 9999, style: "solid" },
       },
-      overlayClose: {
-        position: "absolute",
-        top: 5,
-        right: 15,
+      overlay_close: {
+        float: "right",
         color: "#000",
         cursor: "pointer",
         fontSize: 40,
         lineHeight: "40px",
-        fontWeight: "lighter",
         opacity: 0.4,
         "&:hover": {
           opacity: 1,
@@ -51,7 +84,8 @@ class Overlay extends Component {
 
     return ReactDOM.createPortal(
       <div class={classes.overlay}>
-        <span class={classes.overlayClose} onClick={this.props.onClose}>
+        <span class={classes.overlay_close} onClick={this.props.onClose}>
+          {/* × : font is a good use. But I wanna use svg instead this. */}
           &times;
         </span>
         {this.props.children}
@@ -90,6 +124,7 @@ class UploadFile extends PureComponent {
     let src,
       preview,
       type = file.type;
+
     if (/^image\/\S+$/.test(type)) {
       src = URL.createObjectURL(file);
       preview = <img src={src} alt="" />;
@@ -107,6 +142,7 @@ class UploadFile extends PureComponent {
       };
       return;
     }
+
     this.setState({ path: file.name, data: file, preview: preview });
   }
 
@@ -117,14 +153,11 @@ class UploadFile extends PureComponent {
       return;
     }
 
-    //此处的url应该是服务端提供的上传文件api
-    // const url = 'http://localhost:3000/api/upload';
-    const url = "http://localhost:8000/";
-
+    const url = "http://localhost:" + WEB_PORT + API_UPLOAD_URL;
     const form = new FormData();
 
     //此处的file字段由服务端的api决定，可以是其它值
-    form.append("file", data);
+    form.append(FIELD_NAME, data);
 
     fetch(url, {
       method: "POST",
@@ -135,11 +168,15 @@ class UploadFile extends PureComponent {
   }
 
   cancel() {
-    this.props.closeOverlay();
+    this.props.hideOverlay();
   }
 
   render() {
     const styles = {
+      head: {
+        font: { size: 20, weight: "bold" },
+        lineHeight: "40px",
+      },
       button_upload: {
         float: "right",
         margin: "20px 54px  20px 0",
@@ -244,7 +281,7 @@ class UploadFile extends PureComponent {
 
     return (
       <div>
-        <h4>上传文件</h4>
+        <div class={classes.head}>上传文件</div>
         <div class={classes.row}>
           <label>文件名称</label>
           <input
@@ -277,35 +314,4 @@ class UploadFile extends PureComponent {
   }
 }
 
-export default class Upload extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      overlayActive: false,
-    };
-
-    this.closeOverlay = this.closeOverlay.bind(this);
-    this.showOverlay = this.showOverlay.bind(this);
-  }
-
-  closeOverlay() {
-    this.setState({ overlayActive: false });
-  }
-
-  showOverlay() {
-    this.setState({ overlayActive: true });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.overlayActive && (
-          <Overlay onClose={this.closeOverlay}>
-            <UploadFile closeOverlay={this.closeOverlay} />
-          </Overlay>
-        )}
-        <button onClick={this.showOverlay}>show</button>
-      </div>
-    );
-  }
-}
+export default UploadMain;
