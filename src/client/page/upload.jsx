@@ -4,7 +4,6 @@ import jss from "jss";
 import preset from "jss-preset-default";
 
 import { API_UPLOAD_URL, FIELD_NAME } from "../../shared/app/define_upload";
-import { WEB_PORT } from "../../shared/config";
 
 jss.setup(preset());
 
@@ -153,7 +152,7 @@ class UploadFile extends PureComponent {
       return;
     }
 
-    const url = "http://localhost:" + WEB_PORT + API_UPLOAD_URL;
+    const url = API_UPLOAD_URL;
     const form = new FormData();
 
     //此处的file字段由服务端的api决定，可以是其它值
