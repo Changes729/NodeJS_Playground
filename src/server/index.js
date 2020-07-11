@@ -5,7 +5,12 @@ import multer from "multer";
 import { Server } from "http";
 import fs from "fs";
 
-import { APP_NAME, STATIC_PATH, WEB_PORT } from "../shared/config";
+import {
+  APP_NAME,
+  STATIC_PATH,
+  WEB_PORT,
+  URL_DOCUMENT,
+} from "../shared/config";
 import { isProd } from "../shared/util";
 import {
   API_UPLOAD_URL,
@@ -15,6 +20,7 @@ import {
 import renderApp from "./render-app";
 
 /* Private variables ---------------------------------------------------------*/
+const _FILE_URL = API_UPLOAD_DIR;
 const app = express();
 const http = Server(app);
 
@@ -43,10 +49,9 @@ app.get("/", (req, res) => {
   res.send(renderApp(APP_NAME));
 });
 
-app.get("/demo_file", (req, res) => {
-  res.download(
-    "/home/asuki/GitSource/NodeJS_Playground/src/client/doc/example.md"
-  );
+app.get(URL_DOCUMENT + "/:filename", (req, res) => {
+  const buffer = fs.readFileSync(_FILE_URL + "text/" + req.params.filename);
+  res.send(buffer.toString());
 });
 
 app.post(API_UPLOAD_URL, upload.single(FIELD_NAME), function (req, res) {});
