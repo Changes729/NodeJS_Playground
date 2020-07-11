@@ -163,7 +163,11 @@ class UploadFile extends PureComponent {
       method: "POST",
       body: form,
     }).then((res) => {
-      console.log(res);
+      res.text().then((req) => {
+        if (req == "ok") {
+          this.cancel();
+        }
+      });
     });
   }
 

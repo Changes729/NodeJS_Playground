@@ -54,7 +54,9 @@ app.get(URL_DOCUMENT + "/:filename", (req, res) => {
   res.send(buffer.toString());
 });
 
-app.post(API_UPLOAD_URL, upload.single(FIELD_NAME), function (req, res) {});
+app.post(API_UPLOAD_URL, upload.single(FIELD_NAME), function (req, res) {
+  res.send("ok");
+});
 
 http.listen(WEB_PORT, () => {
   console.log(
