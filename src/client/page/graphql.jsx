@@ -1,10 +1,16 @@
 import React from "react";
+import jss from "jss";
 
 class IssueFilter extends React.Component {
   render() {
     return <div>This is a placeholder for the issue filter.</div>;
   }
 }
+
+const jsonDateReviver = (key, value) => {
+  const dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
+  return dateRegex.test(value) ? new Date(value) : value;
+};
 
 const IssueRow = (props) => {
   const issue = props.issue;
@@ -13,9 +19,9 @@ const IssueRow = (props) => {
       <td>{issue.id}</td>
       <td>{issue.status}</td>
       <td>{issue.owner}</td>
-      <td>{issue.created}</td>
+      <td>{issue.created.toDateString()}</td>
       <td>{issue.effort}</td>
-      <td>{issue.due}</td>
+      <td>{issue.due ? issue.due.toDateString() : " "}</td>
       <td>{issue.title}</td>
     </tr>
   );
@@ -26,8 +32,23 @@ const IssueTable = (props) => {
     <IssueRow key={issue.id} issue={issue} />
   ));
 
+  const styles = {
+    table: {
+      borderCollapse: "collapse",
+      "& th": {
+        border: "1px solid silver",
+        padding: 4,
+      },
+      "& td": {
+        border: "1px solid silver",
+        padding: 4,
+      },
+    },
+  };
+  const { classes } = jss.createStyleSheet(styles).attach();
+
   return (
-    <table className="bordered-table">
+    <table class={classes.table}>
       <thead>
         <tr>
           <th>ID</th>
@@ -98,15 +119,17 @@ class IssueList extends React.Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
     }).then((res) => {
-      res.json().then((data) => {
-        this.setState({ issues: data.data.issueList });
+      res.text().then((data) => {
+        this.setState({
+          issues: JSON.parse(data, jsonDateReviver).data.issueList,
+        });
       });
     });
   }
 
   createIssue(issue) {
     issue.id = this.state.issues.length + 1;
-    issue.created = new Date().toString();
+    issue.created = new Date();
     const newIssueList = this.state.issues.slice();
     newIssueList.push(issue);
     this.setState({ issues: newIssueList });

@@ -5,6 +5,7 @@ import multer from "multer";
 import { Server } from "http";
 import fs from "fs";
 import { ApolloServer } from "apollo-server-express";
+import { GraphQLScalarType } from "graphql";
 
 import {
   APP_NAME,
@@ -48,6 +49,14 @@ const issuesDB = [
   },
 ];
 
+const GraphQLDate = new GraphQLScalarType({
+  name: "GraphQLDate",
+  description: "A Date() type in GraphQL as a scalar",
+  serialize(value) {
+    return value.toISOString();
+  },
+});
+
 const resolvers = {
   Query: {
     about: () => aboutMessage,
@@ -56,6 +65,7 @@ const resolvers = {
   Mutation: {
     setAboutMessage,
   },
+  GraphQLDate,
 };
 
 function setAboutMessage(_, { message }) {
