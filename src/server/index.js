@@ -4,6 +4,7 @@ import express from "express";
 import multer from "multer";
 import { Server } from "http";
 import fs from "fs";
+import { ApolloServer } from "apollo-server-express";
 
 import {
   APP_NAME,
@@ -23,6 +24,52 @@ import renderApp from "./render-app";
 const _FILE_URL = API_UPLOAD_DIR;
 const app = express();
 const http = Server(app);
+
+let aboutMessage = "Issue Tracker API v1.0";
+
+const issuesDB = [
+  {
+    id: 1,
+    status: "New",
+    owner: "Ravan",
+    effort: 5,
+    created: new Date("2019-01-15"),
+    due: undefined,
+    title: "Error in console when clicking Add",
+  },
+  {
+    id: 2,
+    status: "Assigned",
+    owner: "Eddie",
+    effort: 14,
+    created: new Date("2019-01-16"),
+    due: new Date("2019-02-01"),
+    title: "Missing bottom border on panel",
+  },
+];
+
+const resolvers = {
+  Query: {
+    about: () => aboutMessage,
+    issueList,
+  },
+  Mutation: {
+    setAboutMessage,
+  },
+};
+
+function setAboutMessage(_, { message }) {
+  return (aboutMessage = message);
+}
+
+function issueList() {
+  return issuesDB;
+}
+
+const server = new ApolloServer({
+  typeDefs: fs.readFileSync("src/server/schema.graphql", "utf-8"),
+  resolvers,
+});
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -45,13 +92,16 @@ app.use(compression());
 app.use(STATIC_PATH, express.static("dist"));
 app.use(STATIC_PATH, express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send(renderApp(APP_NAME));
-});
+// curl 'http://localhost:8000/graphql?query=query{about}'
+server.applyMiddleware({ app, path: "/graphql" });
 
 app.get(URL_DOCUMENT + "/:filename", (req, res) => {
   const buffer = fs.readFileSync(_FILE_URL + "text/" + req.params.filename);
   res.send(buffer.toString());
+});
+
+app.get("/*", (req, res) => {
+  res.send(renderApp(APP_NAME));
 });
 
 app.post(API_UPLOAD_URL, upload.single(FIELD_NAME), function (req, res) {

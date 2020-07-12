@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./app";
 import { APP_CONTAINER_SELECTOR } from "../shared/config";
-import Doc from "./page/doc";
 
 const rootEl = document.querySelector(APP_CONTAINER_SELECTOR);
 
@@ -14,7 +13,6 @@ const wrapApp = (AppComponent) => (
     <AppContainer>
       <AppComponent />
     </AppContainer>
-    <Doc />
   </BrowserRouter>
 );
 
