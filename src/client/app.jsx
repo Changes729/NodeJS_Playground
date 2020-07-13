@@ -20,7 +20,7 @@ const App = () => (
   <div>
     <Switch>
       <Route exact path={PAGE_ROUTE_ROOT} render={() => <HomePage />} />
-      <Route path={PAGE_ROUTE_DOC} render={() => <Doc />} />
+      <Route path={PAGE_ROUTE_DOC} component={Doc} />
       <Route path={PAGE_ROUTE_UPLOAD} render={() => <UploadDemo />} />
       <Route path={PAGE_ROUTE_PLAYGROUND} render={() => <Playground_Page />} />
       <Route path={PAGE_ROUTE_LEARN_GRAPHQL} render={() => <LearnGraphQL />} />

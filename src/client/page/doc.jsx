@@ -7,16 +7,30 @@ class Doc extends Component {
   constructor(props) {
     super(props);
     this.state = { doc: "" };
+
+    this.loadView = this.loadView.bind(this);
   }
 
-  componentDidMount() {
-    fetch(URL_DOCUMENT + "/example.md", {
+  loadView(arg) {
+    const hashFile = arg.length == 0 ? "#example.md" : arg;
+
+    fetch(URL_DOCUMENT + "/" + hashFile.split("#")[1], {
       method: "GET",
     }).then((res) => {
       res.text().then((markdown) => {
         this.setState({ doc: markdown });
       });
     });
+  }
+
+  componentDidMount() {
+    this.loadView(this.props.location.hash);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.location !== nextProps.location) {
+      this.loadView(nextProps.location.hash);
+    }
   }
 
   render() {
