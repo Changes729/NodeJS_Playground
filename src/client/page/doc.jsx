@@ -34,7 +34,7 @@ class Doc extends Component {
   }
 
   render() {
-    return <ReactMarkdown source={this.state.doc} />;
+    return <ReactMarkdown source={this.state.doc} escapeHtml={false} />;
   }
 }
 
