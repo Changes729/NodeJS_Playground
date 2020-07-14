@@ -12,9 +12,9 @@ class Doc extends Component {
   }
 
   loadView(arg) {
-    const hashFile = arg.length == 0 ? "#example.md" : arg;
+    const hashFile = arg.length == 0 ? "" : arg.split("#")[1];
 
-    fetch(URL_DOCUMENT + "/" + hashFile.split("#")[1], {
+    fetch(URL_DOCUMENT + "/" + hashFile, {
       method: "GET",
     }).then((res) => {
       res.text().then((markdown) => {

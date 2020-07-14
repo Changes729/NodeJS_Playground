@@ -105,8 +105,22 @@ app.use(STATIC_PATH, express.static("public"));
 // curl 'http://localhost:8000/graphql?query=query{about}'
 server.applyMiddleware({ app, path: "/graphql" });
 
-app.get(URL_DOCUMENT + "/:filename", (req, res) => {
-  const buffer = fs.readFileSync(_FILE_URL + "text/" + req.params.filename);
+app.get(URL_DOCUMENT + "/:filename?", (req, res) => {
+  var buffer = String();
+  const path = _FILE_URL + "text/";
+
+  if (req.params.filename) {
+    buffer = fs.readFileSync(path + req.params.filename);
+  } else {
+    if (fs.statSync(path).isDirectory()) {
+      fs.readdirSync(path).forEach((value) => {
+        buffer += String("[" + value + "](#" + value + ")\r\n\r\n");
+      });
+    } else {
+      // nothing todo now.
+    }
+  }
+
   res.send(buffer.toString());
 });
 
