@@ -124,6 +124,18 @@ app.get(URL_DOCUMENT + "/:filename?", (req, res) => {
   res.send(buffer.toString());
 });
 
+app.delete(URL_DOCUMENT + "/:filename?", (req, res) => {
+  var success = false;
+  const path = _FILE_URL + "text/";
+
+  if (req.params.filename) {
+    fs.unlinkSync(path + req.params.filename);
+    success = true;
+  }
+
+  res.send(success ? "ok" : "failed");
+});
+
 app.get("/*", (req, res) => {
   res.send(renderApp(APP_NAME));
 });
