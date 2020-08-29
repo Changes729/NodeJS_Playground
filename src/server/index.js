@@ -1,4 +1,5 @@
 /* Private include -----------------------------------------------------------*/
+import fs from "fs";
 import compression from "compression";
 import express from "express";
 import multer from "multer";
