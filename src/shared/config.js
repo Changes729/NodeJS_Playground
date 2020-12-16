@@ -8,4 +8,4 @@ export const APP_CONTAINER_CLASS = "js-app";
 export const APP_CONTAINER_SELECTOR = `.${APP_CONTAINER_CLASS}`;
 
 export const URL_API = "/api";
-export const URL_DOCUMENT = URL_API + "/document";
+export const URL_API_FILE = URL_API + "/file";

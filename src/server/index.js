@@ -9,7 +9,7 @@ import {
   APP_NAME,
   STATIC_PATH,
   WEB_PORT,
-  URL_DOCUMENT,
+  URL_API_FILE,
 } from "../shared/config";
 import { isProd } from "../shared/util";
 import {
@@ -49,13 +49,12 @@ app.use(STATIC_PATH, express.static("public"));
 // curl 'http://localhost:8000/graphql?query=query{about}'
 apolloServer.applyMiddleware({ app, path: "/graphql" });
 
-app.get(URL_DOCUMENT + "/:filename?", (req, res) => {
-  var buffer = String();
-  const path = _FILE_URL + "text/";
-
+app.get(URL_API_FILE + "/text" + "/:filename?", (req, res) => {
+  const path = _FILE_URL + "/text";
   if (req.params.filename) {
-    buffer = fs.readFileSync(path + req.params.filename);
+    res.sendFile(process.cwd() + "/" + path + "/" + req.params.filename);
   } else {
+    var buffer = String("");
     if (fs.statSync(path).isDirectory()) {
       fs.readdirSync(path).forEach((value) => {
         buffer += String("[" + value + "](#" + value + ")\r\n\r\n");
@@ -63,14 +62,41 @@ app.get(URL_DOCUMENT + "/:filename?", (req, res) => {
     } else {
       // nothing todo now.
     }
+    res.send(buffer);
   }
-
-  res.send(buffer.toString());
 });
 
-app.delete(URL_DOCUMENT + "/:filename?", (req, res) => {
+app.get(URL_API_FILE + "/:path" + "/:filename?", (req, res) => {
+  const path = _FILE_URL + req.params.path;
+
+  if (req.params.filename) {
+    res.sendFile(process.cwd() + "/" + path + "/" + req.params.filename);
+  } else {
+    var buffer = String("");
+    if (fs.statSync(path).isDirectory()) {
+      fs.readdirSync(path).forEach((value) => {
+        buffer += String(
+          "[" +
+            value +
+            "](" +
+            URL_API_FILE +
+            "/" +
+            req.params.path +
+            "/" +
+            value +
+            ")\r\n\r\n"
+        );
+      });
+    } else {
+      // nothing todo now.
+    }
+    res.send(buffer);
+  }
+});
+
+app.delete(URL_API_FILE + "/:path?" + "/:filename?", (req, res) => {
   var success = false;
-  const path = _FILE_URL + "text/";
+  const path = _FILE_URL + req.params.path;
 
   if (req.params.filename) {
     fs.unlinkSync(path + req.params.filename);

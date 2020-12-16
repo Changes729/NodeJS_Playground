@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 
 import { URL_API_FILE } from "../../shared/config";
 
-class Doc extends Component {
+class PDF extends Component {
   constructor(props) {
     super(props);
     this.state = { doc: "" };
@@ -14,7 +14,7 @@ class Doc extends Component {
   loadView(arg) {
     const hashFile = arg.length == 0 ? "" : arg.split("#")[1];
 
-    fetch(URL_API_FILE + "/text/" + hashFile, {
+    fetch(URL_API_FILE + "/pdf/" + hashFile, {
       method: "GET",
     }).then((res) => {
       res.text().then((markdown) => {
@@ -38,4 +38,4 @@ class Doc extends Component {
   }
 }
 
-export default Doc;
+export default PDF;
