@@ -17,6 +17,7 @@ import {
   API_UPLOAD_DIR,
   FIELD_NAME,
 } from "../shared/app/define_upload";
+import { PAGE_ROUTE_DOC } from "../shared/routes";
 import apolloServer from "./graphQL";
 import renderApp from "./render-app";
 
@@ -49,15 +50,23 @@ app.use(STATIC_PATH, express.static("public"));
 // curl 'http://localhost:8000/graphql?query=query{about}'
 apolloServer.applyMiddleware({ app, path: "/graphql" });
 
-app.get(URL_API_FILE + "/text" + "/:filename?", (req, res) => {
-  const path = _FILE_URL + "/text";
-  if (req.params.filename) {
-    res.sendFile(process.cwd() + "/" + path + "/" + req.params.filename);
+app.get(URL_API_FILE + "/text/*", (req, res) => {
+  const uri = decodeURI(req.url);
+  const aim_path = uri.substr(String(URL_API_FILE + "/text/").length);
+  const filepath = _FILE_URL + "/text/" + aim_path;
+
+  if (!filepath.endsWith("/")) {
+    res.sendFile(process.cwd() + "/" + filepath);
+  } else if (fs.existsSync(filepath + "index.md")) {
+    res.sendFile(process.cwd() + "/" + filepath + "index.md");
   } else {
     var buffer = String("");
-    if (fs.statSync(path).isDirectory()) {
-      fs.readdirSync(path).forEach((value) => {
-        buffer += String("[" + value + "](#" + value + ")\r\n\r\n");
+    if (fs.statSync(filepath).isDirectory()) {
+      fs.readdirSync(filepath).forEach((value) => {
+        if (fs.statSync(filepath + value).isDirectory()) value += "/";
+        buffer += String(
+          "[" + value + "](" + PAGE_ROUTE_DOC + aim_path + value + ")\r\n\r\n"
+        );
       });
     } else {
       // nothing todo now.
@@ -68,7 +77,6 @@ app.get(URL_API_FILE + "/text" + "/:filename?", (req, res) => {
 
 app.get(URL_API_FILE + "/:path" + "/:filename?", (req, res) => {
   const path = _FILE_URL + req.params.path;
-
   if (req.params.filename) {
     res.sendFile(process.cwd() + "/" + path + "/" + req.params.filename);
   } else {

@@ -13,9 +13,13 @@ class Doc extends Component {
   }
 
   loadView(arg) {
-    const hashFile = arg.length == 0 ? "" : arg.split("#")[1];
+    const url_path = window.location.pathname;
+    var fetch_path = URL_API_FILE + "/text" + url_path.substr("/doc".length);
+    if (arg.length != 0) {
+      fetch_path += String("/" + arg.split("#")[1]);
+    }
 
-    fetch(URL_API_FILE + "/text/" + hashFile, {
+    fetch(fetch_path, {
       method: "GET",
     }).then((res) => {
       res.text().then((markdown) => {
@@ -35,7 +39,14 @@ class Doc extends Component {
   }
 
   render() {
-    return <div className='markdown-body'> <ReactMarkdown source={this.state.doc} escapeHtml={false} /> </div>;
+    return (
+      <div id="readme" class="container">
+        <article className="markdown-body">
+          {" "}
+          <ReactMarkdown source={this.state.doc} escapeHtml={false} />{" "}
+        </article>
+      </div>
+    );
   }
 }
 

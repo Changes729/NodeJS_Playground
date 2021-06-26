@@ -1,33 +1,33 @@
-body {
-  width: 960px;
-  margin: auto;
-  font-family: sans-serif;
+/** github markdown container style. */
+.container {
+  width: 980px;
+  margin-right: auto;
+  margin-left: auto
 }
 
-h1 {
-  color: limegreen;
+.container:before {
+  display: table;
+  content: ""
 }
 
-.App {
-  text-align: center;
+.container:after {
+  display: table;
+  clear: both;
+  content: ""
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+/** github markdown container border */
+#readme .markdown-body,
+#readme .plain {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 30px;
+  word-wrap: break-word;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+#readme .plain pre {
+  font-size: 15px;
+  white-space: pre-wrap
 }
