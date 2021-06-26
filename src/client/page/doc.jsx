@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
+import "github-markdown-css";
 
 import { URL_API_FILE } from "../../shared/config";
 
@@ -34,7 +35,7 @@ class Doc extends Component {
   }
 
   render() {
-    return <ReactMarkdown source={this.state.doc} escapeHtml={false} />;
+    return <div className='markdown-body'> <ReactMarkdown source={this.state.doc} escapeHtml={false} /> </div>;
   }
 }
 

@@ -24,6 +24,10 @@ export default {
           // { loader: "markdown-loader", options: { pedantic: true, renderer } },
         ],
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   devtool: isProd ? false : "source-map",
