@@ -57,8 +57,8 @@ app.get(URL_API_FILE + "/text/*", (req, res) => {
 
   if (!filepath.endsWith("/")) {
     res.sendFile(process.cwd() + "/" + filepath);
-  } else if (fs.existsSync(filepath + "index.md")) {
-    res.sendFile(process.cwd() + "/" + filepath + "index.md");
+  } else if (fs.existsSync(filepath + "README.md")) {
+    res.sendFile(process.cwd() + "/" + filepath + "README.md");
   } else {
     var buffer = String("");
     if (fs.statSync(filepath).isDirectory()) {
