@@ -75,23 +75,27 @@ app.get(URL_API_FILE + "/text/*", (req, res) => {
   }
 });
 
-app.get(URL_API_FILE + "/:path" + "/:filename?", (req, res) => {
-  const path = _FILE_URL + req.params.path;
-  if (req.params.filename) {
-    res.sendFile(process.cwd() + "/" + path + "/" + req.params.filename);
+app.get(URL_API_FILE + "/*", (req, res) => {
+  const uri = decodeURI(req.url);
+  const aim_path = uri.substr(String(URL_API_FILE).length + 1); // 1 for '/'
+  const filepath = _FILE_URL + aim_path;
+
+  if (!filepath.endsWith("/")) {
+    res.sendFile(process.cwd() + "/" + filepath);
+  } else if (fs.existsSync(filepath + "index.html")) {
+    res.sendFile(process.cwd() + "/" + filepath + "index.html");
+  } else if (fs.existsSync(filepath + "README.md")) {
+    res.sendFile(process.cwd() + "/" + filepath + "README.md");
   } else {
     var buffer = String("");
-    if (fs.statSync(path).isDirectory()) {
-      fs.readdirSync(path).forEach((value) => {
+    if (fs.statSync(filepath).isDirectory()) {
+      fs.readdirSync(filepath).forEach((value) => {
+        if (fs.statSync(filepath + value).isDirectory()) value += "/";
         buffer += String(
           "[" +
             value +
             "](" +
-            URL_API_FILE +
-            "/" +
-            req.params.path +
-            "/" +
-            value +
+            encodeURI(URL_API_FILE + "/" + aim_path + value) +
             ")\r\n\r\n"
         );
       });
