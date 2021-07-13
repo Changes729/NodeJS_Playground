@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
-
+import rehypeKatex from "rehype-katex";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import remarkMath from "remark-math";
+import "github-markdown-css";
+import "../../../public/css/katex.css";
 import { URL_API_FILE } from "../../shared/config";
 
 class PDF extends Component {
@@ -34,7 +39,17 @@ class PDF extends Component {
   }
 
   render() {
-    return <ReactMarkdown source={this.state.doc} escapeHtml={false} />;
+    return (
+      <div id="readme" class="container">
+        <ReactMarkdown
+          children={this.state.doc}
+          className="markdown-body"
+          skipHtml={false}
+          remarkPlugins={[remarkMath, remarkGfm]}
+          rehypePlugins={[rehypeKatex, rehypeRaw]}
+        />
+      </div>
+    );
   }
 }
 
