@@ -44,7 +44,14 @@ class Doc extends Component {
   }
 
   render() {
-    return (
+    const url_path = window.location.pathname;
+    return url_path.endsWith(".html") ? (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: this.state.doc,
+        }}
+      />
+    ) : (
       <div id="readme" class="container">
         <ReactMarkdown
           children={this.state.doc}
