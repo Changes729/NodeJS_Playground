@@ -75,6 +75,16 @@ app.get(URL_API_FILE + "/text/*", (req, res) => {
   }
 });
 
+app.get("/Changes729_image/raw/main/ln/*", (req, res) => {
+  const uri = decodeURI(req.url);
+  const aim_path = uri.substr(String("/Changes729_image/raw/main/ln/").length);
+  const filepath = _FILE_URL + "/image/ln/" + aim_path;
+
+  if (!filepath.endsWith("/")) {
+    res.sendFile(process.cwd() + "/" + filepath);
+  }
+});
+
 app.get(URL_API_FILE + "/*", (req, res) => {
   const uri = decodeURI(req.url);
   const aim_path = uri.substr(String(URL_API_FILE).length + 1); // 1 for '/'
