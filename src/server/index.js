@@ -28,7 +28,7 @@ const http = Server(app);
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    var uploadDir = API_UPLOAD_DIR + file.mimetype.split("/")[0] + "/";
+    var uploadDir = API_UPLOAD_DIR + file.mimetype.split("/")[0] + "/download/";
 
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
