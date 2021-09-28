@@ -1,52 +1,34 @@
 import React, { Component } from "react";
 
+import ReactMarkdown from "react-markdown";
+import TdHead from "./widget/tdHead";
+import TdRevert from "./widget/tdRevert";
+import FoldMenu from "./widget/foldMenu";
+import rehypeKatex from "rehype-katex";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import remarkMath from "remark-math";
+
 import { PAGE_ROUTE_REMEMBER_WORDS } from "../../../shared/routes";
 import { URL_API_FILE } from "../../../shared/config";
 import "github-markdown-css";
 
-class TdRevert extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { invert_value: "invert(50%)" };
-
-    this.revert = this.revert.bind(this);
-  }
-
-  revert() {
-    if (this.state.invert_value == "invert(50%)") {
-      this.setState({ invert_value: "" });
-    } else {
-      this.setState({ invert_value: "invert(50%)" });
-    }
-    console.log(this.state.invert_value);
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  render() {
-    const tdStyle = {
-      filter: this.state.invert_value,
-      backgroundColor: 'white'
-    };
-
-    return (
-      <td onClick={this.revert} style={tdStyle}>
-        {this.props.children}
-      </td>
-    );
-  }
-}
-
+/** 单词表主页 */
 class RememberWordsIndex extends Component {
   constructor(props) {
     super(props);
-    this.state = { raw: "", records: new Map() };
+    this.state = {
+      raw: "",
+      records: new Map(),
+      matchs: new Map(),
+      selectIndex: 0,
+    };
 
     this.loadView = this.loadView.bind(this);
     this.processWords = this.processWords.bind(this);
+    this.SearchWords = this.SearchWords.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
   loadView() {
@@ -103,29 +85,110 @@ class RememberWordsIndex extends Component {
     this.loadView();
   }
 
+  onKeyDown(e) {
+    if (e.key === "Enter") {
+      this.SearchWords(e.target.value);
+    }
+  }
+
+  SearchWords(word) {
+    var match = new Map();
+
+    if (word != "") {
+      console.log("[Info] search word: " + word);
+      this.state.records.forEach((value, key) => {
+        value.forEach((meaning, words) => {
+          if (words.match(word) != null) {
+            console.log("[Info] find word " + words + " in " + key);
+            var record = new Map();
+            record.set(words, meaning);
+            match.set(key, record);
+            return;
+          }
+        });
+      });
+    }
+
+    this.setState({ matchs: match });
+  }
+
+  onSelect(e) {
+    this.setState({ selectIndex: e.target.value });
+  }
+
   render() {
-    Array.from(this.state.records).map(
-      (element, index) => console.log(element[0] + "----" + element[1])
-      // Array.from(val).map((val, key) => console.log(key + ":" + val))
-    );
+    const styles = {
+      fontFamily: "Sunflower, sans-serif",
+      fontWeight: "300",
+      fontSize: "1.5em",
+      lineHeight: "1.6",
+    };
+
+    const selectStyle = {
+      minWidth: "265px",
+      minHeight: "45px",
+      borderWidth: "3px",
+      borderColor: "rgba(50, 50, 50, 0.14)",
+      margin: "10px 10px 10px 0px",
+    };
+
+    const inputStyle = {
+      width: "250px",
+      height: "30px",
+      textIndent: "10px",
+      borderWidth: "3px",
+      borderColor: "rgba(50, 50, 50, 0.14)",
+      margin: "10px 10px 10px 0px",
+      padding: "5px 5px 5px 5px",
+    };
 
     return (
-      <div id="readme" className="container">
-        <div className="markdown-body">
-          {Array.from(this.state.records).map((element) => (
-            <div>
-              <p>{element[0]}</p>
-              <table className="mainpagetable">
-                {Array.from(element[1]).map((key_val) => (
-                  <tr className="row" key={key_val[0]}>
-                    <td>{key_val[0]}</td>
-                    <TdRevert key={key_val[1]}>{key_val[1]}</TdRevert>
-                  </tr>
-                ))}
-              </table>
-            </div>
+      <div style={styles}>
+        <select onChange={this.onSelect} style={selectStyle}>
+          <option value={-1}>全部</option>
+          {Array.from(this.state.records).map((element, index) => (
+            <option value={index} selected={index == 0 ? true : false}>
+              {element[0]}
+            </option>
           ))}
-        </div>
+        </select>
+        <input onKeyDown={this.onKeyDown} style={inputStyle}></input>
+        {Array.from(
+          this.state.matchs.size > 0 ? this.state.matchs : this.state.records
+        ).map((element, index) =>
+          this.state.selectIndex < 0 ||
+          this.state.selectIndex == index ||
+          this.state.matchs.size > 0 ? (
+            <FoldMenu
+              className="mainpagetable"
+              title={element[0] + "(" + element[1].size + ")"}
+              isShown={true}
+            >
+              {Array.from(element[1]).map((key_val) => (
+                <tr className="row">
+                  <TdHead>
+                    <ReactMarkdown
+                      skipHtml={false}
+                      children={key_val[0]}
+                      remarkPlugins={[remarkMath, remarkGfm]}
+                      rehypePlugins={[rehypeKatex, rehypeRaw]}
+                    />
+                  </TdHead>
+                  <TdRevert>
+                    <ReactMarkdown
+                      skipHtml={false}
+                      children={key_val[1]}
+                      remarkPlugins={[remarkMath, remarkGfm]}
+                      rehypePlugins={[rehypeKatex, rehypeRaw]}
+                    />
+                  </TdRevert>
+                </tr>
+              ))}
+            </FoldMenu>
+          ) : (
+            <div></div>
+          )
+        )}
       </div>
     );
   }
