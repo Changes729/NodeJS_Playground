@@ -57,13 +57,14 @@ class RememberWordsIndex extends Component {
       .forEach(function (str, i) {
         /* 空行、制表行、无内容表格行都跳过 */
         if (!/\S/.test(str)) return;
+        str = str.trim();
         var array = str.match(re);
         if (array != null) {
           array[1] = array[1].trim();
           array[2] = array[2].trim();
           // console.log(array);
           if (!/\S/.test(array[1]) && !/\S/.test(array[2])) return;
-          if (/[-\s]+/.test(array[1]) && /[-\s]+/.test(array[2])) return;
+          if (/[-+]+/.test(array[1]) && /[-+]+/.test(array[2])) return;
         }
 
         /* 合法的单词表进行绘制，合法的其他内容单行显示 */
@@ -120,7 +121,7 @@ class RememberWordsIndex extends Component {
     const styles = {
       fontFamily: "Sunflower, sans-serif",
       fontWeight: "300",
-      fontSize: "1.5em",
+      fontSize: "2em",
       lineHeight: "1.6",
     };
 

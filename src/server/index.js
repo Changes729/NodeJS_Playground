@@ -65,7 +65,11 @@ app.get(URL_API_FILE + "/text/*", (req, res) => {
       fs.readdirSync(filepath).forEach((value) => {
         if (fs.statSync(filepath + value).isDirectory()) value += "/";
         buffer += String(
-          "[" + value + "](" + PAGE_ROUTE_DOC + aim_path + value + ")\r\n\r\n"
+          "[" +
+            value +
+            "](" +
+            encodeURI(PAGE_ROUTE_DOC + aim_path + value) +
+            ")\r\n\r\n"
         );
       });
     } else {
